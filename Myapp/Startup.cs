@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -28,7 +29,19 @@ namespace Myapp
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "My API",
+                    Version = "v1",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = "None",
+                    Contact = new Contact { Name = "Shayne Boyer", Email = "", Url = "https://twitter.com/spboyer" },
+                    License = new License { Name = "Use under LICX", Url = "https://example.com/license" }
+                });
+
+                var basePath = AppContext.BaseDirectory;
+                var xmlPath = Path.Combine(basePath, "Myapp.xml");
+                c.IncludeXmlComments(xmlPath);
             });
         }
 

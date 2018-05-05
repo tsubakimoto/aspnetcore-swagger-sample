@@ -24,9 +24,28 @@ namespace Myapp.Controllers
         }
 
         // POST api/values
+        /// <summary>
+        /// Add a value.
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// 
+        ///     POST /values
+        ///     value=hoge
+        /// 
+        /// </remarks>
+        /// <param name="value"></param>
+        /// <returns>A new value</returns>
+        /// <response code="201">Returns the newly-created value</response>
+        /// <response code="400">If the value is null</response>
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]string value)
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return BadRequest();
+            }
+            return CreatedAtAction(nameof(Get), 1);
         }
 
         // PUT api/values/5
